@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    {% for message in messages %}
+        <h1 style="color: green"> {{ message }}</h1>
+    {% endfor %}    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Entrer votre identifiant">
+        <br>
+        <input type="password" name="password" placeholder="Entrer votre password">
+        <button type="submit">Login</button>
+        <br>
+    </form>
+
+{% endblock %}

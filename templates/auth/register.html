@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    {% for message in messages %}
+        <h1 style="color: green"> {{ message }}</h1>
+    {% endfor %}
+    <form method=post>
+        {% csrf_token %}
+        <dl>
+          <dd>{{ form }}
+          <dt><input type="submit" class="button button-primary" value="Register">
+        </dl>
+    </form>
+
+{% endblock %}
