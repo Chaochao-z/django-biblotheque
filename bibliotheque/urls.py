@@ -23,5 +23,6 @@ urlpatterns = [
     path('register', accounts_views.register, name="register"),
     path('login', accounts_views.connexion, name="login"),
     path('logout', accounts_views.deconnexion, name="logout"),
+    path('libraire',livre_views.libraire, name="libraire"),
     path('admin/', admin.site.urls),
 ]
