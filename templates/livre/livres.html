@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <h1 class="text-center">Les livres</h1>
+    <section style="max-width: 1400px;margin: auto;">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+            {% for livre in livres %}
+                <div class="card" style="width: 18rem;min-width: 286px;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ livre.titre }}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item">Auteur : {{ livre.auteur }}</li>
+                          <li class="list-group-item">Jaquette : {{ livre.jaquette }}</li>
+                          <li class="list-group-item">Éditeur : {{ livre.editeur }}</li>
+                          <li class="list-group-item">Collection : {{ livre.collection }}</li>
+                          <li class="list-group-item">Genre : {{ livre.genre }}</li>
+                          <li class="list-group-item">Bibliothèque : {{ livre.biblio.name }}</li>
+                      </ul>
+                      <div class="card-body">
+                          {% if livre.dispo %}
+                              <form method="POST" action="{% url 'livre_emprunter' livre.pk  %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary">
+                                        Emprunter
+                                    </button>
+                              </form>
+                          {% else %}
+                              Actuellement Indisponible
+                          {% endif %}
+
+                      </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </section>
+{% endblock %}

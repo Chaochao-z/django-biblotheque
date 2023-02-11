@@ -1,6 +1,6 @@
 from django import forms
 from accounts.models import Livre, Biliotheque
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import ModelForm, ModelChoiceField, BooleanField
 
 
 class LivreForm(ModelForm):
@@ -8,7 +8,6 @@ class LivreForm(ModelForm):
         queryset=Biliotheque.objects.order_by('name'),
         to_field_name='name',
         required=False,
-
     )
 
     class Meta:
@@ -20,7 +19,8 @@ class LivreForm(ModelForm):
             'editeur',
             'collection',
             'genre',
-            'biblio'
+            'biblio',
+            'dispo'
         ]
         labels = {
             'title': 'Titre',

@@ -130,3 +130,9 @@ body{
     font-weight: 400;
     margin: 0 20px;
 }
+
+.icone-center
+{
+    margin-top: -.235ex;
+    vertical-align: middle;
+}

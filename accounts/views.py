@@ -10,6 +10,8 @@ from accounts.form import UserForm
 # Create your views here.
 
 def register(request):
+    if request.user:
+        return redirect('home')
     form = UserForm()
     if request.method == 'POST':
         form = UserForm(data=request.POST)
@@ -24,14 +26,26 @@ def register(request):
 
 
 def connexion(request):
+    if request.user:
+        return redirect('home')
+    redirect_to = False
+    if request.GET:
+        if request.GET['next']:
+            redirect_to = request.GET['next']
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            messages.success(request, 'login Success')
-            return redirect('home')
+            if user.is_active:
+                login(request, user)
+                if redirect_to:
+                    return redirect(redirect_to)
+                else:
+                    return redirect('home')
+            else:
+                messages.error(request, "Your account is disabled!")
+                return redirect('login')
         else:
             messages.error(request, "Erreur d'identifiant ou password")
     return render(request, 'auth/login.html')

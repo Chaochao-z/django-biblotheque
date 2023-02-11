@@ -25,6 +25,7 @@ class Livre(models.Model):
     editeur = models.CharField(max_length=60)
     collection = models.CharField(max_length=60)
     genre = models.CharField(max_length=60)
+    dispo = models.BooleanField(default=True)
     biblio = models.ForeignKey(Biliotheque, on_delete=models.CASCADE)
 
 

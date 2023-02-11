@@ -1,10 +1,10 @@
 {% extends 'libraire/base-libraire.html' %}
 
 {% block content %}
+    <div style="height: 100px"></div>
     {% for message in messages %}
         <div class="alert alert-danger text-center m-auto" style="width: 500px;">{{ message }}</div>
     {% endfor %}
-    <div style="height: 100px"></div>
     <div class="m-auto">
         <h1 class="text-center mt-5">Add livre</h1>
         <form method=post style="max-width: 500px;" class="m-auto border border-light-subtle p-5">

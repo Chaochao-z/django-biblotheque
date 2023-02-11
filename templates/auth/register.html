@@ -1,12 +1,18 @@
 {% extends 'index.html' %}
 
 {% block content %}
-    {% for message in messages %}
-        <div class="alert alert-danger text-center m-auto" style="width: 500px;">{{ message }}</div>
-    {% endfor %}
+    <div style="height: 100px;"></div>
+
     <div class="m-auto">
         <h1 class="text-center mt-5">Registration</h1>
         <form method=post style="max-width: 500px;" class="m-auto border border-light-subtle p-5">
+            {% for message in messages %}
+                {% if message.tags == "error" %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
             {% csrf_token %}
             <div class="d-flex flex-column row-gap-4">
                 <div class="d-flex flex-row justify-content-between">
