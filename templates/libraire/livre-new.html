@@ -1,0 +1,65 @@
+{% extends 'libraire/base-libraire.html' %}
+
+{% block content %}
+    {% for message in messages %}
+        <div class="alert alert-danger text-center m-auto" style="width: 500px;">{{ message }}</div>
+    {% endfor %}
+    <div style="height: 100px"></div>
+    <div class="m-auto">
+        <h1 class="text-center mt-5">Add livre</h1>
+        <form method=post style="max-width: 500px;" class="m-auto border border-light-subtle p-5">
+            {% csrf_token %}
+            <div class="d-flex flex-column row-gap-4">
+                <div class="d-flex flex-row justify-content-between">
+                {{ form.titre.error }}
+                {{ form.titre.label }} :
+                {{ form.titre }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.auteur.error }}
+                    {{ form.auteur.label }} :
+                    {{ form.auteur }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.jaquette.error }}
+                    {{ form.jaquette.label }} :
+                    {{ form.jaquette }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.editeur.error }}
+                    {{ form.editeur.label }} :
+                    {{ form.editeur }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.collection.error }}
+                    {{ form.collection.label }} :
+                    {{ form.collection }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.genre.error }}
+                    {{ form.genre.label }} :
+                    {{ form.genre }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.biblio.error }}
+                    {{ form.biblio.label }} :
+                    {{ form.biblio }}
+                </div>
+
+            </div>
+
+
+
+            <input type="submit" class="btn btn-primary" value="Register">
+
+        </form>
+
+    </div>
+
+{% endblock %}

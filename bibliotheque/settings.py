@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'livre'
 
 ]
 
@@ -128,5 +129,4 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    '/var/www/static/',
 ]

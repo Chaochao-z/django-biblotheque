@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+import json
 from accounts.form import UserForm
 
 
@@ -19,6 +19,7 @@ def register(request):
             return redirect('login')
         else:
             messages.error(request, form.errors)
+
     return render(request, 'auth/register.html', {'form':form})
 
 

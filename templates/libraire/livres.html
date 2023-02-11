@@ -1,0 +1,35 @@
+{% extends 'libraire/base-libraire.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <section style="max-width: 1400px;margin: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Auteur</th>
+                    <th>Jaquette</th>
+                    <th>Editeur</th>
+                    <th>Collection</th>
+                    <th>Genre</th>
+                    <th>Bibliotheque</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for livre in livres %}
+                    <tr>
+                        <td>{{ livre.titre }}</td>
+                        <td>{{ livre.auteur }}</td>
+                        <td>{{ livre.jaquette }}</td>
+                        <td>{{ livre.editeur }}</td>
+                        <td>{{ livre.collection }}</td>
+                        <td>{{ livre.genre }}</td>
+                        <td>{{ livre.biblio.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

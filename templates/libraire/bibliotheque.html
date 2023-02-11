@@ -1,0 +1,27 @@
+{% extends 'libraire/base-libraire.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <section style="max-width: 1400px;margin: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Adresse</th>
+                    <th>Code postal</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for bibliotheque in bibliotheques %}
+                    <tr>
+                        <td>{{ bibliotheque.name }}</td>
+                        <td>{{ bibliotheque.adresse }}</td>
+                        <td>{{ bibliotheque.cp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

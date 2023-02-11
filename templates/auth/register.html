@@ -2,14 +2,68 @@
 
 {% block content %}
     {% for message in messages %}
-        <h1 style="color: green"> {{ message }}</h1>
+        <div class="alert alert-danger text-center m-auto" style="width: 500px;">{{ message }}</div>
     {% endfor %}
-    <form method=post>
-        {% csrf_token %}
-        <dl>
-          <dd>{{ form }}
-          <dt><input type="submit" class="button button-primary" value="Register">
-        </dl>
-    </form>
+    <div class="m-auto">
+        <h1 class="text-center mt-5">Registration</h1>
+        <form method=post style="max-width: 500px;" class="m-auto border border-light-subtle p-5">
+            {% csrf_token %}
+            <div class="d-flex flex-column row-gap-4">
+                <div class="d-flex flex-row justify-content-between">
+                {{ form.username.error }}
+                {{ form.username.label }} :
+                {{ form.username }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.first_name.error }}
+                    {{ form.first_name.label }} :
+                    {{ form.first_name }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.last_name.error }}
+                    {{ form.last_name.label }} :
+                    {{ form.last_name }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.email.error }}
+                    {{ form.email.label }} :
+                    {{ form.email }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.password1.error }}
+                    {{ form.password1.label }} :
+                    {{ form.password1 }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.password2.error }}
+                    {{ form.password2.label }} :
+                    {{ form.password2 }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.adresse.error }}
+                    {{ form.adresse.label }} :
+                    {{ form.adresse }}
+                </div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    {{ form.cp.error }}
+                    {{ form.cp.label }} :
+                    {{ form.cp }}
+                </div>
+            </div>
+
+
+
+            <input type="submit" class="btn btn-primary" value="Register">
+
+        </form>
+
+    </div>
 
 {% endblock %}

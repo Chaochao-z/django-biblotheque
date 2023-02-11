@@ -24,5 +24,8 @@ urlpatterns = [
     path('login', accounts_views.connexion, name="login"),
     path('logout', accounts_views.deconnexion, name="logout"),
     path('libraire',livre_views.libraire, name="libraire"),
+    path('libraire/livres', livre_views.livre, name="libraire_livre"),
+    path('libraire/livres/add', livre_views.addLivre, name="libraire_livre_add"),
+    path('libraire/bibliotheque', livre_views.bibliotheque, name="livraire_bibliotheque"),
     path('admin/', admin.site.urls),
 ]
