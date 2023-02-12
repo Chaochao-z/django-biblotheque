@@ -10,7 +10,7 @@ from accounts.form import UserForm
 # Create your views here.
 
 def register(request):
-    if request.user:
+    if request.user.pk:
         return redirect('home')
     form = UserForm()
     if request.method == 'POST':
