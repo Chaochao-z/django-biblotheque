@@ -33,3 +33,6 @@ class Pret(models.Model):
     date = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     livre = models.ForeignKey(Livre, on_delete=models.CASCADE)
+    dateend = models.DateTimeField()
+    daterendu = models.DateTimeField(default=None, blank=True, null=True)
+

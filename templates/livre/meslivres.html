@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <section style="max-width: 1400px;margin: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Auteur</th>
+                    <th>Editeur</th>
+                    <th>Bibliotheque</th>
+                    <th>Date d'emprunt</th>
+                    <th>Date Limite</th>
+                    <th>Date Rendu</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for pret in prets %}
+                    <tr>
+                        <td>{{ pret.livre.titre }}</td>
+                        <td>{{ pret.livre.auteur }}</td>
+                        <td>{{ pret.livre.editeur }}</td>
+                        <td>{{ pret.livre.biblio.name }}</td>
+                        <td>{{ pret.date|date:"d-m-Y" }}</td>
+                        <td>{{ pret.dateend|date:"d-m-Y H:i" }}</td>
+                        {% if pret.daterendu %}
+                            <td>{{ pret.daterendu|date:"d-m-Y H:i" }}</td>
+                        {% elif pret.dateend <= todaynow %}
+                            <td>Retard <iconify-icon icon="material-symbols:circle" style="color: red;" width="24" class="icone-center"></iconify-icon></td>
+                        {% else %}
+                            <td>Il vous reste {{ todaynow|timesince:pret.dateend }}<iconify-icon icon="material-symbols:circle" style="color: green;" width="24" class="icone-center"></iconify-icon></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

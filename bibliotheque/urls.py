@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/login/', accounts_views.connexion, name="login_next"),
     path('logout', accounts_views.deconnexion, name="logout"),
     path('livres',livre_views.livres, name="livres"),
+    path('meslivres', livre_views.meslivres, name="meslivres"),
     path('livres/emprunter/<int:livre_pk>/', livre_views.emprumter, name="livre_emprunter"),
     path('libraire',livre_views.libraire, name="libraire"),
     path('libraire/livres', livre_views.livre, name="libraire_livre"),

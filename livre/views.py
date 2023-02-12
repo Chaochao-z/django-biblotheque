@@ -1,8 +1,11 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
-from accounts.models import Livre, Biliotheque
+from accounts.models import Livre, Biliotheque, Pret
 from .form import LivreForm
 from django.contrib import messages
+from datetime import datetime
+import pytz
+
 
 
 # Create your views here.
@@ -57,6 +60,22 @@ def livres(request):
 @login_required
 def emprumter(request, livre_pk):
     if request.user.pk:
-        return redirect('register')
+        Pret.objects.create(user_id=request.user.pk,livre_id=livre_pk, rendu=False,dateend=datetime.now() + timedelta(days=15))
+        livre = Livre.objects.get(id=livre_pk)
+        livre.dispo = False
+        livre.save()
+        messages.success(request, "Vous avez bien emprunter le livre, vous avez 15Jours pour le rendre")
+        return redirect('livres')
     else:
         return redirect('login')
+
+@login_required()
+def meslivres(request):
+    context = {}
+    now = datetime.now()
+    context["todaynow"] = now.replace(tzinfo=pytz.utc)
+    context["prets"] = Pret.objects.filter(user_id=request.user.pk)
+    return render(request, 'livre/meslivres.html', context=context)
+
+
+
