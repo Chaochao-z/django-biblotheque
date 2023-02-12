@@ -37,3 +37,14 @@ class Pret(models.Model):
     dateend = models.DateTimeField()
     daterendu = models.DateTimeField(default=None, blank=True, null=True)
 
+class Groupe_Lecture(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=400)
+    date = models.DateTimeField()
+    biblio = models.ForeignKey(Biliotheque, on_delete=models.CASCADE)
+
+class GL_User(models.Model):
+    dateinscription = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    groupe_lecture = models.ForeignKey(Groupe_Lecture, on_delete=models.CASCADE)
+

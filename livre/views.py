@@ -11,7 +11,9 @@ import pytz
 def index(request):
     context = {}
     context['user'] = request.user
-    return render(request, 'test.html', context=context)
+    context['livres'] = Livre.objects.all()[:4]
+    context['bibliotheques'] = Biliotheque.objects.all()[:4]
+    return render(request, 'home.html', context=context)
 
 
 @user_passes_test(lambda u: u.is_staff, login_url='/login/')
