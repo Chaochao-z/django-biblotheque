@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div style="height: 100px"></div>
+    <form method="GET" action="{% url 'search_livre' %}" style="margin-left: 100px">
+        <h2>Recherche Vos livres</h2>
+        <div style="max-width: 200px;">
+            <select class="form-control selectpicker" name="livre" data-live-search="true">
+                <option value="">Recherche Livre</option>
+                {% for livre in alllivres %}
+                    <option value="{{ livre.pk }}" data-tokens="{{ livre.titre }} {{ livre.auteur }}">{{ livre.titre }} {{ livre.auteur }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="height: 10px"></div>
+        <button class="btn btn-primary" type="submit">Recherche</button>
+    </form>
+    {% for message in messages %}
+        {% if message.tags == "error" %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% else %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+    <h1 class="text-center">Résultat</h1>
+    {% if livre %}
+        <section style="max-width: 1400px;margin: auto;">
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <div class="card" style="width: 18rem;min-width: 286px;">
+                          <div class="card-body">
+                            <h5 class="card-title">{{ livre.titre }}</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          </div>
+                          <ul class="list-group list-group-flush">
+                              <li class="list-group-item">Auteur : {{ livre.auteur }}</li>
+                              <li class="list-group-item">Jaquette : {{ livre.jaquette }}</li>
+                              <li class="list-group-item">Éditeur : {{ livre.editeur }}</li>
+                              <li class="list-group-item">Collection : {{ livre.collection }}</li>
+                              <li class="list-group-item">Genre : {{ livre.genre }}</li>
+                              <li class="list-group-item">Bibliothèque : {{ livre.biblio.name }}</li>
+                          </ul>
+                          <div class="card-body">
+                              {% if livre.dispo %}
+                                  <form method="POST" action="{% url 'livre_emprunter' livre.pk  %}">
+                                        {% csrf_token %}
+                                        <button class="btn btn-primary">
+                                            Emprunter
+                                        </button>
+                                  </form>
+                              {% else %}
+                                  Actuellement Indisponible
+                              {% endif %}
+
+                          </div>
+                    </div>
+
+            </div>
+
+        </section>
+    {% else %}
+        <h3 class="text-center">Aucun résultat trouvé</h3>
+    {% endif %}
+
+{% endblock %}

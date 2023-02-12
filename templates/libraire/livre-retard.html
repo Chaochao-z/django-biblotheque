@@ -1,0 +1,82 @@
+{% extends 'libraire/base-libraire.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <section style="max-width: 1400px;margin: auto;">
+        {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% else %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Livre</th>
+                <th>Editeur</th>
+                <th>Emprunteur</th>
+                <th>Bibliotheque</th>
+                <th>Date d'emprunt</th>
+                <th>Date Limite</th>
+                <th>Date Rendu</th>
+                <th>Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for pret in prets %}
+                {% if todaynow > pret.dateend and pret.daterendu is None%}
+                    <tr>
+                        <td>{{ pret.livre.titre }}</td>
+                        <td>{{ pret.livre.editeur }}</td>
+                        <td>{{ pret.user.last_name }} {{ pret.user.first_name }}</td>
+                        <td>{{ pret.livre.biblio.name }}</td>
+                        <td>{{ pret.date|date:"d-m-Y H:i" }}</td>
+                        <td>{{ pret.dateend|date:"d-m-Y H:i" }}</td>
+                        {% if pret.daterendu %}
+                            <td>{{ pret.daterendu|date:"d-m-Y H:i" }}</td>
+                        {% elif pret.dateend <= todaynow %}
+                            <td>Retard
+                                <iconify-icon icon="material-symbols:circle" style="color: red;" width="24"
+                                              class="icone-center"></iconify-icon>
+                            </td>
+                        {% else %}
+                            <td>Dans {{ todaynow|timesince:pret.dateend }}
+                                <iconify-icon icon="material-symbols:circle" style="color: green;" width="24"
+                                              class="icone-center"></iconify-icon>
+                            </td>
+                        {% endif %}
+                        <td>
+                            {% if pret.daterendu %}
+                                {% if pret.daterendu > pret.dateend %}
+                                    Livre rendu en retard
+                                {% else %}
+                                    Livre rendu à l'heure
+                                {% endif %}
+                            {% else %}
+                                <form method="POST" action="{% url 'rendre_livre' pret.pk %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary">
+                                        Retour au Bibliothèque
+                                    </button>
+                                </form>
+                                <div style="height: 10px;display: block"></div>
+                                <form method="POST" action="{% url 'libraire_emprunt_add_time' pret.pk  %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-primary">
+                                        Ajouter 5 Jours délai
+                                    </button>
+                                </form>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

@@ -18,16 +18,16 @@
             <section class="section-navbar-center" id="section-navbar-center">
                 <div class="section-navbar-center-div">
                     <span class="section-navbar-center-span section-navbar-center-span-margin">
-                         <a href=""><span>Accueil</span></a>
+                         <a href="{% url 'libraire' %}"><span>Accueil</span></a>
                     </span>
                     <span class="section-navbar-center-span">
-                        <a href=""><span>Emprunts</span></a>
+                        <a href="{% url 'libraire_emprunts' %}"><span>Emprunts</span></a>
                     </span>
                     <span class="section-navbar-center-span">
-                        <a href=""><span>Livres</span></a>
+                        <a href="{% url 'libraire_livre' %}"><span>Livres</span></a>
                     </span>
                     <span class="section-navbar-center-span">
-                        <a href=""><span>Retards livres</span></a>
+                        <a href="{% url 'libraire_livres_retard' %}"><span>Retards livres</span></a>
                     </span>
                     <span class="section-navbar-center-span">
                         <a href=""><span>Groupes de lectures</span></a>

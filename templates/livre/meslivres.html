@@ -24,7 +24,7 @@
                         <td>{{ pret.livre.auteur }}</td>
                         <td>{{ pret.livre.editeur }}</td>
                         <td>{{ pret.livre.biblio.name }}</td>
-                        <td>{{ pret.date|date:"d-m-Y" }}</td>
+                        <td>{{ pret.date|date:"d-m-Y H:i" }}</td>
                         <td>{{ pret.dateend|date:"d-m-Y H:i" }}</td>
                         {% if pret.daterendu %}
                             <td>{{ pret.daterendu|date:"d-m-Y H:i" }}</td>

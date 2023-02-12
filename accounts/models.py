@@ -13,6 +13,7 @@ class CustomUser(AbstractUser):
 class Biliotheque(models.Model):
     name = models.CharField(max_length=60)
     adresse = models.CharField(max_length=60)
+    ville = models.CharField(max_length=50)
     cp = models.CharField(max_length=60)
 
     def __str__(self):
