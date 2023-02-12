@@ -132,8 +132,39 @@ def searchLivre(request):
     livre = ""
     if request.GET:
         if request.GET['livre']:
-            livre = Livre.objects.get(id=request.GET['livre'])
+            if Livre.objects.filter(id=request.GET['livre']).exists():
+                livre = Livre.objects.get(id=request.GET['livre'])
     context = {}
     context["livre"] = livre
     context["alllivres"] = Livre.objects.all()
     return render(request, 'livre/searchlivre.html', context=context)
+
+def bibliotheques(request):
+    context = {}
+    context["bibliotheques"] = Biliotheque.objects.order_by("name")
+    return render(request, 'bibliotheque/index.html', context=context)
+
+def bibliothequesearch(request):
+    bibliotheque = ""
+    if request.GET:
+        if request.GET['id']:
+            if Biliotheque.objects.filter(id=request.GET['id']).exists():
+                bibliotheque = Biliotheque.objects.get(id=request.GET['id'])
+    context = {}
+    context["resultat"] = bibliotheque
+    context["bibliotheques"] = Biliotheque.objects.all()
+    return render(request, 'bibliotheque/search.html', context=context)
+
+def bibliothequeLivre(request):
+    livres =""
+    bibliotheque =""
+    if request.GET:
+        if request.GET['id']:
+            if Livre.objects.filter(biblio_id=request.GET['id']).exists():
+                livres = Livre.objects.filter(biblio_id=request.GET['id'])
+            if Biliotheque.objects.filter(id=request.GET['id']).exists():
+                bibliotheque = Biliotheque.objects.get(id=request.GET['id'])
+    context = {}
+    context["bibliotheque"] = bibliotheque
+    context["livres"] = livres
+    return render(request, 'bibliotheque/livres.html', context=context)

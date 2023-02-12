@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+    <div style="height: 100px"></div>
+    <form method="GET" action="{% url 'bibliotheque_search' %}" style="margin-left: 100px">
+        <h2>Recherche Bibliothèque</h2>
+        <div style="max-width: 200px;">
+            <select class="form-control selectpicker" name="id" data-live-search="true">
+                <option value="">Recherche Bibliothèque</option>
+                {% for bibliotheque in bibliotheques %}
+                    <option value="{{ bibliotheque.pk }}" data-tokens="{{ bibliotheque.name }} {{ bibliotheque.ville }} {{ bibliotheque.cp }} ">{{ bibliotheque.name }} : {{ bibliotheque.ville }} {{ bibliotheque.cp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div style="height: 10px"></div>
+        <button class="btn btn-primary" type="submit">Recherche</button>
+    </form>
+    {% for message in messages %}
+        {% if message.tags == "error" %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% else %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+    <h1 class="text-center">Résultat</h1>
+    {% if resultat %}
+        <section style="max-width: 1400px;margin: auto;">
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <div class="card" style="width: 18rem;min-width: 286px;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ resultat.name }}</h5>
+                        <p class="card-text">Adresse{{ resultat.adresse }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Ville : {{ resultat.ville }}</li>
+                        <li class="list-group-item">Code Postale : {{ resultat.cp }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="bibliotheque/livres?id={{ resultat.pk }}" class="btn btn-primary">Voir les livres
+                            disponible</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    {% else %}
+        <h4 class="text-center">Aucun résultat trouvé</h4>
+    {% endif %}
+
+{% endblock %}
