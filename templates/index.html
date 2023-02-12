@@ -39,9 +39,12 @@
                         <a href="{% url 'bibliotheques' %}"><span>Bibliothequès</span></a>
                     </span>
                     <span class="section-navbar-center-span">
-                        <a href=""><span>Groupes de lectures</span></a>
+                        <a href="{% url 'groupe-lecture' %}"><span>Groupes de lectures</span></a>
                     </span>
                     {% if user.username %}
+                        <span class="section-navbar-center-span">
+                            <a href="{% url 'meslecture' %}"><span>Mes Groupes Lecture</span></a>
+                        </span>
                         <span class="section-navbar-center-span">
                             <a href="{% url 'meslivres' %}"><span>Mes livres</span></a>
                         </span>

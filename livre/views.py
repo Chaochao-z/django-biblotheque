@@ -18,21 +18,21 @@ def index(request):
 
 @user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def libraire(request):
-    return render(request, 'libraire/index.html', context={})
+    return redirect('libraire_emprunts')
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def bibliotheque(request):
     context = {}
     context["bibliotheques"] = Biliotheque.objects.order_by("name")
     return render(request, 'libraire/bibliotheque.html', context=context)
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def livre(request):
     context = {}
     context["livres"] = Livre.objects.order_by("titre")
     return render(request, 'libraire/livres.html', context=context)
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def addLivre(request):
     form = LivreForm()
     if request.method == "POST":
@@ -47,7 +47,7 @@ def addLivre(request):
             messages.error(request, form.errors)
     return render(request, 'libraire/livre-new.html', {'form': form})
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def deleteLivre(request, livre_pk):
     livre = Livre.objects.get(id=livre_pk)
     livre.delete()
@@ -94,7 +94,7 @@ def meslivres(request):
     context["prets"] = Pret.objects.filter(user_id=request.user.pk)
     return render(request, 'livre/meslivres.html', context=context)
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def libraireEmprunt(request):
     context = {}
     now = datetime.now()
@@ -102,7 +102,7 @@ def libraireEmprunt(request):
     context["prets"] = Pret.objects.order_by("-date")
     return render(request, 'libraire/lesemprunts.html', context=context)
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def libraireRendreLivre(request, pret_pk):
     pret = Pret.objects.get(id=pret_pk)
     pret.daterendu = datetime.now()
@@ -113,7 +113,7 @@ def libraireRendreLivre(request, pret_pk):
     messages.success(request, 'Le Livre est retourné au biblothèque')
     return redirect('libraire_emprunts')
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def libraireLivresRetard(request):
     context = {}
     now = datetime.now()
@@ -121,7 +121,7 @@ def libraireLivresRetard(request):
     context["prets"] = Pret.objects.order_by("-date")
     return render(request, 'libraire/livre-retard.html', context=context)
 
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def libraireEmpruntAddTime(request, pret_pk):
     pret = Pret.objects.get(id=pret_pk)
     pret.dateend = pret.dateend + timedelta(days=5)
@@ -129,6 +129,7 @@ def libraireEmpruntAddTime(request, pret_pk):
     message = "Vous avez ajouter 5 jours pour M."+pret.user.username+" sur le livre "+ pret.livre.titre
     messages.success(request, message)
     return redirect('libraire_emprunts')
+
 
 def searchLivre(request):
     livre = ""

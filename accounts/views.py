@@ -26,7 +26,7 @@ def register(request):
 
 
 def connexion(request):
-    if request.user:
+    if request.user.pk:
         return redirect('home')
     redirect_to = False
     if request.GET:

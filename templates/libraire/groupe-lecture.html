@@ -1,0 +1,47 @@
+{% extends 'libraire/base-libraire.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <section style="max-width: 1400px;margin: auto;">
+        {% for message in messages %}
+                {% if message.tags == "error" %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        <a href="{% url 'libraire_gl_add' %}" class="btn btn-success" >Add Groupe Lecture</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Lieux</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for groupe in groupes %}
+                    <tr>
+                        <td>{{ groupe.title }}</td>
+                        <td style="max-width: 400px">{{ groupe.description }}</td>
+                        <td>{{ groupe.date|date:"d-m-Y H:i" }}</td>
+                        <td>{{ groupe.biblio.adresse }} {{ groupe.biblio.ville }} {{ groupe.biblio.cp }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'libraire_gl_delete' groupe.pk %}">
+                                {% csrf_token %}
+                                <button class="btn btn-primary">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

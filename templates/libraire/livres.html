@@ -3,6 +3,13 @@
 {% block content %}
     <div style="height: 100px"></div>
     <section style="max-width: 1400px;margin: auto;">
+    {% for message in messages %}
+                {% if message.tags == "error" %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
         <a href="{% url 'libraire_livre_add' %}" class="btn btn-success" >Add Livres</a>
         <table class="table">
             <thead>

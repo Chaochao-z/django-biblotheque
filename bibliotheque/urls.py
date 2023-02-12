@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 import livre.views as livre_views
 import accounts.views as accounts_views
+from groupelecture import views as gl_views
 
 urlpatterns = [
     path('', livre_views.index, name="home"),
@@ -31,6 +32,9 @@ urlpatterns = [
     path('bibliotheque/search', livre_views.bibliothequesearch,name="bibliotheque_search"),
     path('bibliotheque/livres', livre_views.bibliothequeLivre, name="bibliotheque_livres"),
     path('livres/emprunter/<int:livre_pk>/', livre_views.emprumter, name="livre_emprunter"),
+    path('groupe-lecture', gl_views.index, name="groupe-lecture"),
+    path('groupe-lecture/participate/<int:groupe_pk>/', gl_views.gl_participate, name="gl-participe"),
+    path('mesgroupe-lecture' ,gl_views.mesgroupelecture, name="meslecture"),
     path('libraire',livre_views.libraire, name="libraire"),
     path('libraire/livres', livre_views.livre, name="libraire_livre"),
     path('libraire/livres/retard', livre_views.libraireLivresRetard, name="libraire_livres_retard"),
@@ -40,5 +44,8 @@ urlpatterns = [
     path('libraire/bibliotheque', livre_views.bibliotheque, name="livraire_bibliotheque"),
     path('libraire/emprunts', livre_views.libraireEmprunt, name="libraire_emprunts"),
     path('libraire/emprunts/addtime/<int:pret_pk>/', livre_views.libraireEmpruntAddTime, name="libraire_emprunt_add_time"),
+    path('libraire/groupe-lecture', gl_views.libraireIndex, name="libraire_gl"),
+    path('libraire/groupe-lecture/add', gl_views.libraireAddGl, name="libraire_gl_add"),
+    path('libraire/groupe-lecture/delete/<int:groupe_pk>', gl_views.libraireDeleteGl, name="libraire_gl_delete"),
     path('admin/', admin.site.urls),
 ]

@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div style="height: 100px"></div>
+    <section style="max-width: 1400px;margin: auto;">
+        {% for message in messages %}
+                {% if message.tags == "error" %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        <h1 class="text-center">Mes groupes de lectures</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Lieux</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for participate in participates %}
+                    <tr>
+                        <td>{{ participate.groupe_lecture.title }}</td>
+                        <td style="max-width: 400px">{{ participate.groupe_lecture.description }}</td>
+                        <td>{{ participate.groupe_lecture.date|date:"d-m-Y H:i" }}</td>
+                        <td>{{ participate.groupe_lecture.biblio.adresse }} {{ participate.groupe_lecture.biblio.ville }} {{ participate.groupe_lecture.biblio.cp }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}

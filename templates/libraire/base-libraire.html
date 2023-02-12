@@ -30,9 +30,11 @@
                         <a href="{% url 'libraire_livres_retard' %}"><span>Retards livres</span></a>
                     </span>
                     <span class="section-navbar-center-span">
-                        <a href=""><span>Groupes de lectures</span></a>
+                        <a href="{% url 'libraire_gl' %}"><span>Groupes de lectures</span></a>
                     </span>
-
+                    <span class="section-navbar-center-span">
+                            <a href="{% url 'logout' %}"><span><iconify-icon icon="material-symbols:logout" width="34" class="icone-center"></iconify-icon>Déconnexion</span></a>
+                        </span>
 
                 </div>
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Biliotheque, Livre, Pret
+from .models import CustomUser, Biliotheque, Livre, Pret, GL_User, Groupe_Lecture
 
 
 # Register your models here.
@@ -57,4 +57,8 @@ admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Biliotheque)
 admin.site.register(Livre)
 admin.site.register(Pret)
+admin.site.register(Groupe_Lecture)
+admin.site.register(GL_User)
+
+
 
